@@ -25,4 +25,4 @@ There are indeed categories of things that are useful to know about.
 12. Where can I find documentation on the process you went through and a step-by-step guide how do do it?
 13. Are there IaaS-specific issues here?
 No - bosh.
-14. 
+14. What is the meaning of 'migrated_from' and how is it used?
