@@ -7,6 +7,18 @@
 
 # Questions
 1. How complex is your environment, really?
+Start state: Two deployments (CF and Diego) with multiple instances of VM types across 2-3 access zones.
+- MySQL cluster (Gallera) ?
+- Consul cluster (ssl?)
+- etcd cluster (ssl?)
+
+
+End state: One deployment (CF _with_ Diego), with multiple instances of VM types across 3 access zones.
+- MySQL cluster (Gallera)
+- Consul cluster (ssl)
+- etcd cluster (ssl)
+
+
 2. What did you learn?
 3. What did you do?
 4. Who are you?
@@ -26,3 +38,7 @@ There are indeed categories of things that are useful to know about.
 13. Are there IaaS-specific issues here?
 No - bosh.
 14. What is the meaning of 'migrated_from' and how is it used?
+
+# Speech structure
+1. Describe what we started with
+2. Describe what we had to do
