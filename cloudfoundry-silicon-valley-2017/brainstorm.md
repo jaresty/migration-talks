@@ -31,7 +31,7 @@ End state: One deployment (CF _with_ Diego), with multiple instances of VM types
 - Migrated separate CF and Diego deployments into a single collocated CF+Diego deployment.
 - We iterated on doing this migration over weeks running into various deployment issues that we resolved using the strategies we mentioned in the "what did you learn" section.
 5. Who are you?
-- The Release Integration team is an Open Source team responsible for [pithy statement here].  We own:
+- The Release Integration is an Open Source team responsible for [pithy statement here].  We own:
   - CATs: The Cloud Foundry Acceptance Tests
   - CF Release: Our current recommended release mechanism for Cloud Foundry
   - CF Deployment: Our next-gen recommended deployment of Cloud Foundry (it's boss)
@@ -47,9 +47,23 @@ End state: One deployment (CF _with_ Diego), with multiple instances of VM types
 * preventing downtime
 * handling existing credentials with multi-instance jobs
 * adding security where it didn't exist before with multi-instance jobs
+* database job gets replaced, resulting in data loss without migrated_from
 8. What kinds of changes did you make in the migration?  Are there broad categories/types of changes that are useful to know about?
-There are indeed categories of things that are useful to know about.
+- There are indeed categories of things that are useful to know about:
+  - Understanding the semantics of `static` and `reserved` IP address ranges, and how they affect the pre- and post-migration jobs.  Some jobs we wanted to keep alive during the migration had IP addresses that needed to be reserved to prevent collisions.  Which jobs those were and why we needed to keep them alive is a mystery that we want to investigate for this talk. ??
+  - Ensuring datastore (etcd/mysql) continuity during the upgrade so you don't lose applications
+    - Migrating Diego from `etcd` -> `mysql` before migration [outline the steps to do this here]
+    - Ensuring continuity through migration via Bosh's `migrated_from`
+  - How we learned to stop worrying and love dual Diegos
+  - Principled application of Bosh `vars` vs `ops`
+  - Backups are absolutely necessary before embarking on this mission or else you may lose everything and be sad
 9. What changes are required when migrating from a bosh 1.0 manifest to a bosh 2.0 manifest?
+- cloud-config has been moved to a separate file, allowing separation of IaaS-specific concerns (which are in the cloud-config) from IaaS-neutral deployment information
+- bosh links allow bosh to manage IP addresses for you so you no longer have to specify and use static IP addresses to connect jobs (like mysql and dependent apps) to one another
+- bosh links allow jobs to provide and consume properties so you no longer have to maintain duplicate configuration (like password configuration so e.g. mysql and dependent apps agree on a password value) across jobs
+- bosh variables allow bosh to generate passwords, signed certificates, and keys for your deployment so you no longer have to generate these values by hand
+- bosh ops files allow repeatable in-place modifications of manifests so transformations to manifests can be shared as their own kind of tool (e.g. an ops file to deploy on GCP, or bosh-lite, or an ops-file to remove all secrets for example)
+- bosh variables with --var-errs can be used to quickly find problems in your manifest where any variable has not been specified (all variables are considered necessary for deployments to succeed)
 10. What do you get from migrating to bosh 2.0?
 11. Is it necessary to migrate from bosh 1.0 to bosh 2.0 to do what you did?
 12. What techniques are useful for dealing with migrating jobs?
