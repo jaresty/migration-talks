@@ -75,14 +75,29 @@ End state: One deployment (CF _with_ Diego), with multiple instances of VM types
   - allow repeatable in-place modifications of manifests so transformations to manifests can be shared as their own kind of tool (e.g. an ops file to deploy on GCP, or bosh-lite, or an ops-file to remove all secrets for example)
 - bosh links!  Link all the things!
 11. Is it necessary to migrate from bosh 1.0 to bosh 2.0 to do what you did?
+- If you interpret "do do what you did" to mean "migrating from separate CF an diego deployments to a single deployment" then strictly speaking, no.  However, the real task we had was to migrate from cf-release (our current git-submodule-based release strategy) to cf-deployment (our new manifest-based release awesomesauce). So, Yes?
 12. What techniques are useful for dealing with migrating jobs?
+- keep all the job names the same
+- use migrated_from for everything to keep things alive rather than tearing down and creating new for all jobs
 13. What techniques are useful for dealing with enabling security/adding certificates?
+- use bosh --var-store to generate credentials if possible, because it will automatically generate them for you making your life easier.
+- make sure to specify correctly the ext key usage properties for servers, clients, or both as required by each job.  This may require some trial and error unless you are using cf deployment (which already has been customized this way). Feel free to use it as an example for your own needs.
+- make sure that all domain names are properly specified for server certs as alternate names or else the certificate will be rejected by clients
+- you can use bosh logs -f | grep --line-buffered -i tls to help discover problems with certificates throughout your entire deployment when reproducing errors
+13. What techniques are useful for dealing with rotating certificates?
+- when rotating credentials, you need to do two deployments; first, scale clustered jobs down to a single instance to avoid problems such as etcd split-brain; then, scale back up.
 14. What techniques are useful for dealing with existing credentials?
+- Keep all of your credentials the same to avoid introducing credential rotation problems while dealing with the migration, to make sure you are not trying to debug multiple kinds of errors at once.
 15. What techniques are useful to prevent downtime?
+- use migrated_from properly(?) to specify jobs that are being migrated to prevent them from being torn down and recreated, which would result in downtime
+- consider duplicating your entire deployment and migrating one side using a load balancer to keep traffic going to the other side.
+- consider separating your database out into a separate deployment so it doesn't need to be redeployed at the same time?
+- ask pivotal tracker team about what they be doing when migrating to PWS?
 16. Where can I find documentation on the process you went through and a step-by-step guide how do do it?
 17. Are there IaaS-specific issues here?
 No - bosh.
 18. What is the meaning of 'migrated_from' and how is it used?
+19.  What if we had all separate deployments?
 
 # Speech structure
 1. Describe what we started with
