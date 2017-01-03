@@ -8,9 +8,9 @@ It is a Use Case.
 
 ## Provide a biography, including your previous speaking experience
 
-Josh has been working on the release integration team for CloudFoundry as a representative of Dell/EMC since July 20##.  In that time, he has used bosh to deploy, test, debug, and do most things that bosh can do. Before working in DevOps on CloudFoundry, Josh worked as a Ruby-on-Rails developer for MathWorks, as an English teacher in Japan, and as a Mac Systems Administrator for MIT's Language Learning and Resource Center. Josh has started and served as President for two Toastmasters clubs: one in Japan and one in MathWorks, speaking many times at those organizations on a variety of topics.
+Josh has been working on the release integration team for CloudFoundry as a representative of Dell/EMC since July 2016.  In that time, he has used bosh to deploy, test, debug, and do most things that bosh can do. Before working in DevOps on CloudFoundry, Josh worked as a Ruby-on-Rails developer for MathWorks, as an English teacher in Japan, and as a Mac Systems Administrator for MIT's Language Learning and Resource Center. Josh has started and served as President for two Toastmasters clubs: one in Japan and one in MathWorks, speaking many times at those organizations on a variety of topics.
 
-Steve has been member of Pivotal's Release Integration team since October 20##.  Prior to Pivotal, Steve has been a developer at Rogue Wave Software, Hewlett-Packard and Strands Labs working on projects ranging from C++ class libraries to general-purpose recommendation engines.
+Steve has been member of Pivotal's Release Integration team since October 2016.  Prior to Pivotal, Steve has been a developer at Rogue Wave Software, Hewlett-Packard and Strands Labs working on projects ranging from C++ class libraries to general-purpose recommendation engines.
 
 ## Provide a session abstract covering what you would like to present. This abstract is what will be used on the event schedule if your submission is selected.
 
