@@ -94,9 +94,11 @@ End state: One deployment (CF _with_ Diego), with multiple instances of VM types
 - consider separating your database out into a separate deployment so it doesn't need to be redeployed at the same time?
 - ask pivotal tracker team about what they be doing when migrating to PWS?
 16. Where can I find documentation on the process you went through and a step-by-step guide how do do it?
+[ ] Insert link to CF deployment migration document that we are updating to answer this question
 17. Are there IaaS-specific issues here?
 No - bosh.
 18. What is the meaning of 'migrated_from' and how is it used?
+- 'migrated_from' allows bosh to recognize a relationship between jobs that have been renamed or moved and so would be difficult otherwise for bosh to migrate.  This is important to add in order to maintain data and uptime.
 19.  What if we had all separate deployments?
 
 # Speech structure
