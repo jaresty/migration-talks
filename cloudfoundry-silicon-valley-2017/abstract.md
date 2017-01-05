@@ -18,7 +18,7 @@ Using bosh is hard.  Using bosh to migrate existing deployments is harder.  Stev
 
 ## Describe who the audience is and what you expect them to gain from your presentation.
 
-We expect the audience to be primarily bosh users of some kind.  Bosh operators will find this content particularly useful as they may trying to do the same kinds of things that we did in this project.
+We expect the audience to be primarily bosh users of some kind.  Bosh operators will find this content particularly useful as they may be trying to do the same kinds of things that we did in this project.
 
 ## Tell us how the content of your presentation will help Cloud Foundry community.
 
