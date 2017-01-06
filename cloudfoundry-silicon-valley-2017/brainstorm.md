@@ -9,11 +9,13 @@ Share a series of lessons learned doing the migration of CF+Diego -> CF-Deployme
 1. How complex is your environment, really?
 
     Start state: Two deployments (CF and Diego) with multiple instances of VM types across 2-3 access zones.
+
         - MySQL cluster (Gallera) ?
         - Consul cluster (ssl?)
         - etcd cluster (ssl?)
 
     End state: One deployment (CF _with_ Diego), with multiple instances of VM types across 3 access zones.
+
         - MySQL cluster (Gallera)
         - Consul cluster (ssl)
         - etcd cluster (ssl)
