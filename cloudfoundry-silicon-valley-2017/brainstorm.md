@@ -8,6 +8,10 @@ Share a series of lessons learned doing the migration of CF+Diego -> CF-Deployme
 # Questions
 1. How complex is your environment, really?
 
+    Cloud Foundry is an extremely [complex workload](https://docs.cloudfoundry.org/concepts/images/cf_architecture_block.png).  Pivotal fundamentally shifted how we deliver its integration from a release-centric model (think: binary) to a deployment (think: BOSH releases) model. (in the past, users would generate their deployment manifests using scripts included in the release; now, we ship just the manifest which pulls in external releases)
+
+    We used BOSH to migrate from one to the other.
+
     Start state: Two deployments (CF and Diego) with multiple instances of VM types across 2-3 access zones.
 
         - MySQL cluster (Gallera) ?
@@ -27,6 +31,7 @@ Share a series of lessons learned doing the migration of CF+Diego -> CF-Deployme
     - To limit the kinds of problems you encounter to only migration problems:
         - It's helpful to try and keep credentials identical during the migration if you can and only rotate them later (as opposed to also including authentication issues)
         - It's helpful to try and keep versions of jobs as close as possible on both sides of the migration in order to limit the kinds of problems you encounter
+    - CF's complexity makes it hard to predict things like downtime.  Instead, we prefer to monitor our migration in CI to understand the downtime characteristics of the system.
 
 3. Why are those insights at all useful?  Aren't they obvious?
     - No.  We ran into each of these problems in turn, spending weeks in the process of debugging our migration.
@@ -117,7 +122,14 @@ Share a series of lessons learned doing the migration of CF+Diego -> CF-Deployme
     - No - bosh.
 18. What is the meaning of 'migrated_from' and how is it used?
     - 'migrated_from' allows bosh to recognize a relationship between jobs that have been renamed or moved and so would be difficult otherwise for bosh to migrate.  This is important to add in order to maintain data and uptime.
-19.  What if we had all separate deployments?
+19. What if we had all separate deployments?
+    - Deployments encode order, so having separate deployments would mean users would have to manually manage the order of deploying.
+    - It blinds bosh to the relationships between components to not have it in the same deployment.
+    - For example, this would interfere with rolling out stemcell updates smoothly.
+    - We're not sure why this would be a good idea.
+20. Can this migration done without downtime?
+    [ ] Test this migration as part of [this story](https://www.pivotaltracker.com/story/show/130956469)
+    - Maybe.  We are going to try it out.
 
 # Speech structure
 1. Describe what we started with
