@@ -120,13 +120,16 @@ Share a series of lessons learned doing the migration of CF+Diego -> CF-Deployme
 
 17. Are there IaaS-specific issues here?
     - No - bosh.
+
 18. What is the meaning of 'migrated_from' and how is it used?
     - 'migrated_from' allows bosh to recognize a relationship between jobs that have been renamed or moved and so would be difficult otherwise for bosh to migrate.  This is important to add in order to maintain data and uptime.
+
 19. What if we had all separate deployments?
     - Deployments encode order, so having separate deployments would mean users would have to manually manage the order of deploying.
     - It blinds bosh to the relationships between components to not have it in the same deployment.
     - For example, this would interfere with rolling out stemcell updates smoothly.
     - We're not sure why this would be a good idea.
+
 20. Can this migration done without downtime?
     [ ] Test this migration as part of [this story](https://www.pivotaltracker.com/story/show/130956469)
     - Maybe.  We are going to try it out.
